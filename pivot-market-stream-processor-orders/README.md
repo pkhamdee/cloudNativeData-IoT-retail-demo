@@ -5,10 +5,7 @@
 	
 	stream create --name pivotMartOrders --definition "http --port=7374  | orders --jdbcUrl='jdbc:postgresql://18.213.48.32:6432/retail' --jdbcUsername=retail | log"
 	
-	
-	
-	 stream deploy pivotMartOrders --properties "app.http.spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092,app.http.spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181,app.log.spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092,app.log.spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181,app. orders.spring.cloud.stream.kafka.streams.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092,app. orders.spring.cloud.stream.kafka.streams.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181"
-	 
+
 	 
 app.http.spring.cloud.stream.defaultBinder=kakfa1,app.order.spring.cloud.stream.defaultBinder=kakfa
 	 
