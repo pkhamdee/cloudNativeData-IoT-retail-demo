@@ -30,22 +30,13 @@ or  pivotmarketstreams.apps.pcfone.io/loadProductsCache
 
 	app import --uri http://bit.ly/Darwin-SR3-stream-applications-rabbit-maven
 	
-	
-	
 	app register --name kafka --type source --uri file:///Projects/solutions/nyla/integration/dev/nyla-integration/messaging/apacheKafka/nyla-kafka-spring-cloud-stream-source/target/nyla-kafka-spring-cloud-stream-source-0.0.1-SNAPSHOT.jar
 	
 	
 	app register --name orders --type processor --uri file:///Projects/Pivotal/demo/cloudNativeDataDemo/dev/CloudNativeDataDemo/supermarket/pivot-market-stream-processor-orders-0.0.1-SNAPSHOT.jar
 
-
-
-
 	stream create --definition "kafka --boot-strap-servers-config=localhost:9092 --group-id=scdfPivotMarket | pivotmart-process  --jdbcUrl='jdbc:postgresql://localhost:5432/template1' --jdbcUsername=gpadmin --jdbcPassword=$PASSWD --kafkaBootStrapServers=localhost:9092 --kafkaGroupId=scdf| log" --name pivotMarket-stream
-	
-	
 		
-		
-	
 	stream deploy --name pivotMarket-stream --properties  app.kafka.spring.cloud.stream.defaultBinder=rabbit1
 
 
@@ -94,20 +85,6 @@ cf create-user-provided-service kafkacups -p '{”brokers":"HOST:PORT","zkNodes"
 	
 	stream create --name test --definition "http --port=7374  | pivotmart-process --jdbcUrl='jdbc:postgresql://localhost:5432/template1' --jdbcUsername=gpadmin --jdbcPassword=$PASSWD --kafkaBootStrapServers=localhost:9092 --kafkaGroupId=scdf | log" 
 	
- stream deploy test --properties "app.http.spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092,app.http.spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181,app.log.spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092,app.log.spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181,app.pivotmart-process.spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092,app.pivotmart-process.spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:9092"
-
-
-:9092
-
-	--
-
-	cf bind-service umqjatp-pivotMarket-stream-pivotmart-process-v5  pcc-dev-plan
-	cf restage umqjatp-pivotMarket-stream-log-v1
-	
-	cf bind-service pivotMarketStreams pcc-dev-plan
-	   	
-	app unregister --name kafka --type source
-	app unregister --name pivotmart-process --type processor
    
 # Greenplum Association Rules
 

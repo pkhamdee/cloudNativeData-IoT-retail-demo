@@ -61,11 +61,8 @@ For a future version we could also have online shopping as well.
 	
 ## SCDF
 
-Hello Team,
 
-The current status is the following.
-
-I have currently have SCDF, PCC and initial web application instances deployed to PCFONe.
+SCDF, PCC and initial web application instances deployed to PCFONe.
 I needed to deploy Kafka outside of PCFONe.
 It is currently deployed on AWS ec2-35-174-17-30.compute-1.amazonaws.com:9092
 with a topic “beacon”.
@@ -122,25 +119,17 @@ For messages coming back to the UI, currently the UI will display in near realti
 	  
 	  bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning
 	  
-	  bin/kafka-console-consumer.sh --bootstrap-server ec2-35-174-17-30.compute-1.amazonaws.com:9092 --topic beacon --from-beginning
-	  
-	  
-	ssh -i /Projects/Pivotal/AWS/PDE-easta.pem ec2-user@ec2-35-174-17-30.compute-1.amazonaws.com
-	scp  -i /Projects/Pivotal/AWS/PDE-easta.pem  /devtools/integration/messaging/	kafka_2.12-1.0.0.tar.gz ec2-user@ec2-35-174-17-30.compute-1.amazonaws.com:
-	
-	
-	ssh -i /Projects/Pivotal/AWS/PDE-easta.pem ec2-user@ec2-35-174-17-30.compute-1.amazonaws.com
 
 ## PCF
 
+Setup details
+
 	cf bind-service pivotMarketStreams  pcc-dev-plan
-	
 	create lucene index --region=products --name=productIndex --field=productName
 	create region --name=products --type=PARTITION
 
 	deploy --jar=/Projects/solutions/nyla/dev/nyla.solutions.core/build/libs/nyla.solutions.core-1.1.11-SNAPSHOT.jar
 	y
-	
 	
 	deploy --jar=/Projects/solutions/gedi/dev/gedi-geode/gedi-geode-extensions-core/target/gedi-geode-extensions-core-1.1.8.jar
 	y

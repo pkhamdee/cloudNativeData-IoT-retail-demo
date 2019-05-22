@@ -59,7 +59,6 @@ Remove spring.cloud.stream.bindings.applicationMetrics.destination from  SPRING_
 
 	cf install-plugin -r CF-Community "Service Instance Logging"
 	cf service-logs scdf
-	
 	cf target -o group-pde-dev -s cloud-demo
 
 # Testing
