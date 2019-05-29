@@ -1,3 +1,7 @@
+# Running Standalone
+
+
+# PCF INStallation
 
 	app import --uri http://bit.ly/Celsius-SR3-stream-applications-kafka-10-maven
 
@@ -10,10 +14,6 @@
 app.http.spring.cloud.stream.defaultBinder=kakfa1,app.order.spring.cloud.stream.defaultBinder=kakfa
 	 
 
-SPRING_APPLICATION_JSON: {
- "spring.cloud.dataflow.stream.app.label":"orders",
- "spring.cloud.stream.metrics.properties":"spring.application.name,spring.application.index,spring.cloud.application.*,spring.cloud.dataflow.*"
- ,
  "spring.cloud.stream.bindings.applicationMetrics.destination":"metrics"
  ,
  "spring.cloud.dataflow.stream.name":"pivotMartOrders",
@@ -60,8 +60,14 @@ Remove spring.cloud.stream.bindings.applicationMetrics.destination from  SPRING_
 
 # Testing
 
+
+CSV Format: Key,firstName,lastName,phone,productIds
+
+
 	bin/kafka-console-producer.sh --broker-list localhost:9092 --topic orders-in
-	"0","Nyla","Nyla","777-777-7777","1,2"
+	"0","Nyla","Nyla","777-777-7777","63"
+	"0","Nyla","Nyla","777-777-7777","1,2,63"
+	"0","Nyla","Nyla","777-777-7777","3,4,26"
 	
 	
 	

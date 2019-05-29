@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams;
+package io.pivotal.services.pivotMart.streams;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

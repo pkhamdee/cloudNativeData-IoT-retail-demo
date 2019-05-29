@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams.dao;
+package io.pivotal.services.pivotMart.streams.dao;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
@@ -16,7 +16,8 @@ import io.pivotal.gemfire.domain.CustomerFavorites;
 import io.pivotal.gemfire.domain.CustomerIdentifier;
 import io.pivotal.gemfire.domain.Product;
 import io.pivotal.gemfire.domain.Promotion;
-import io.pivotal.pde.pivotMart.streams.PivotMartStreamConf;
+import io.pivotal.services.pivotMart.streams.PivotMartStreamConf;
+import io.pivotal.services.pivotMart.streams.dao.PivotMartDAO;
 
 @Ignore
 public class PivotMartDAOTest

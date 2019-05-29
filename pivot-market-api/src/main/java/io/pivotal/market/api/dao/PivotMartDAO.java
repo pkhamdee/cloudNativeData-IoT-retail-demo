@@ -265,7 +265,8 @@ public class PivotMartDAO
 	}//------------------------------------------------
 	public Set<ProductAssociate> selectProductAssociates(Product product)
 	{
-		String sql = "select pre[1],post from pivotalmarkets.assoc_rules where pre[1] = ?";
+		String sql = "select pre[1],post from pivotalmarkets.assoc_rules where lower(pre[1]) like lower('%"+
+			product.getProductName().trim()+"%')";
 		
 		RowMapper<ProductAssociate> mapper = (rs,i) -> {
 			Array posts = rs.getArray(2);
@@ -274,7 +275,8 @@ public class PivotMartDAO
 			return pa;
 			};
 		
-		List<ProductAssociate> list = this.jdbcTemplate.query(sql, mapper,product.getProductName());
+		List<ProductAssociate> list = this.jdbcTemplate.query(sql, mapper); 
+		//this.jdbcTemplate.query(sql, mapper,product.getProductName());
 		
 		if(list == null || list.isEmpty())
 			return null;

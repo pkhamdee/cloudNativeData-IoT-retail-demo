@@ -1,15 +1,13 @@
 package io.pivotal.pde.pivotMarket.streams.processors.orders;
-import java.util.Arrays;
-import org.apache.kafka.streams.KeyValue;
-import org.apache.kafka.streams.kstream.KStream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
-import org.springframework.cloud.stream.binder.kafka.streams.annotations.KafkaStreamsProcessor;
+import org.springframework.cloud.stream.messaging.Processor;
 import org.springframework.messaging.handler.annotation.SendTo;
 
+import io.pivotal.gemfire.domain.OrderDTO;
 import io.pivotal.market.api.PivotalMartFacadeService;
 import nyla.solutions.core.util.Config;
 
@@ -26,49 +24,39 @@ public class OrderProcessorPivotMartApp {
 		SpringApplication.run(OrderProcessorPivotMartApp.class, args);
 	}//------------------------------------------------
 	
-	@EnableBinding(KafkaStreamsProcessor.class)
+	@EnableBinding(Processor.class)
 	public static class OrderProcessor {
 
 		@Autowired
 		PivotalMartFacadeService service;
 		
-		@StreamListener("input")
-		@SendTo("output")
-		public KStream<Object, Object> process(KStream<Object, String> input) {
+		/**
+		 * 
+		 * @param csv the CSV input
+		 * @return the order details
+		 */
+		@StreamListener(Processor.INPUT)
+		@SendTo(Processor.OUTPUT)
+		public OrderDTO process(String csv) {
 
-			input.foreach((k,v) -> System.out.println("v:"+v));
+			System.out.println("stream PROCESSING:"+csv);
 			
-			//return input;
-			
-			return input.flatMapValues(
-				(csv) ->
-				{
-					try
-					{
+			try
+			{
 						System.out.println("ARGUMENTS:"+System.getProperty("sun.java.command"));
 						System.out.println(" csv:"+csv);
-						return Arrays.asList(service.processOrderCSV(csv));
-					}
-					catch(Exception e)
-					{
+						OrderDTO order = service.processOrderCSV(csv);
+						
+						System.out.println("ORDER processed:"+order);
+						
+						return order;
+			}
+			catch(Exception e)
+			{
 						System.err.println("CANNOT process csv:"+csv);
 						e.printStackTrace();
-						return Arrays.asList();
-					}					
-					
-				}).map((k,v) -> new KeyValue<>(k, v));
-			
-			
-			/**
-			return input
-					.flatMapValues(value -> Arrays.asList(value.toLowerCase().split("\\W+")))
-					.map((key, value) -> new KeyValue<>(value, value))
-					.groupByKey(Serialized.with(Serdes.String(), Serdes.String()))
-					.windowedBy(TimeWindows.of(30000))
-					.count(Materialized.as("WordCounts-1"))
-					.toStream()
-					.map((key, value) -> new KeyValue<>("HELLO","WORLD"));
-					*/
+						throw e;
+			}
 		}
 	}
 }

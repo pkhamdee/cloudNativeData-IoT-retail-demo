@@ -131,10 +131,10 @@ Setup details
 	deploy --jar=/Projects/solutions/nyla/dev/nyla.solutions.core/build/libs/nyla.solutions.core-1.1.11-SNAPSHOT.jar
 	y
 	
-	deploy --jar=/Projects/solutions/gedi/dev/gedi-geode/gedi-geode-extensions-core/target/gedi-geode-extensions-core-1.1.8.jar
+	deploy --jar=/Projects/solutions/gedi/dev/gedi-geode/gedi-geode-extensions-core/target/gedi-geode-extensions-core-1.2.2.jar
 	y
 	
-	deploy --jar=/Projects/Pivotal/demo/cloudNativeDataDemo/dev/CloudNativeDataDemo/supermarket/pivot-market-domain/target/pivot-market-domain-0.0.3.jar
+	deploy --jar=/Projects/Pivotal/demo/cloudNativeDataDemo/dev/cloudNativeData-IoT-retail-demo/pivot-market-domain/target/pivot-market-domain-0.0.4-SNAPSHOT.jar
 	y
 	
 	create region  --type=PARTITION --name=customerPromotions
@@ -145,6 +145,6 @@ Setup details
 	create region  --type=PARTITION --name=beaconPromotions 
 	create region  --type=PARTITION --name=customerLocation
 	create region  --type=PARTITION --name=productAssociations
+	create region  --type=PARTITION --name=products
 	
-	s
 	

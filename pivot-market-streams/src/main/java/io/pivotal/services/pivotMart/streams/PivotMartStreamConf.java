@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams;
+package io.pivotal.services.pivotMart.streams;
 
 import java.beans.PropertyVetoException;
 import java.util.Properties;
@@ -26,12 +26,12 @@ import io.pivotal.gemfire.domain.Product;
 import io.pivotal.gemfire.domain.ProductAssociate;
 import io.pivotal.gemfire.domain.Promotion;
 import io.pivotal.market.api.dao.PivotMarketPostgreDAO;
-import io.pivotal.pde.pivotMart.streams.dao.PivotMartDAO;
+import io.pivotal.services.pivotMart.streams.dao.PivotMartDAO;
 import nyla.solutions.core.patterns.workthread.ExecutorBoss;
 import solutions.nyla.apacheKafka.ApacheKafka;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "io.pivotal.market.dao")
+@EnableJpaRepositories(basePackages = "io.pivotal.market.api")
 @EnableTransactionManagement
 public class PivotMartStreamConf
 {

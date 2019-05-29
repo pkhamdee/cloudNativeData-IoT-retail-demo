@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams;
+package io.pivotal.services.pivotMart.streams;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -26,7 +26,7 @@ import io.pivotal.gemfire.domain.OrderDTO;
 import io.pivotal.gemfire.domain.Product;
 import io.pivotal.gemfire.domain.ProductAssociate;
 import io.pivotal.gemfire.domain.Promotion;
-import io.pivotal.pde.pivotMart.streams.dao.PivotMartDAO;
+import io.pivotal.services.pivotMart.streams.dao.PivotMartDAO;
 import nyla.solutions.core.io.csv.CsvReader;
 import nyla.solutions.core.patterns.workthread.ExecutorBoss;
 import nyla.solutions.core.patterns.workthread.MemorizedQueue;

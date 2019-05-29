@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams.dao;
+package io.pivotal.services.pivotMart.streams.dao;
 import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Calendar;

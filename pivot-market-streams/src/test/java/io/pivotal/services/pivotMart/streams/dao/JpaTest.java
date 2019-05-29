@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams.dao;
+package io.pivotal.services.pivotMart.streams.dao;
 
 import static org.junit.Assert.assertNotNull;
 
@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import io.pivotal.gemfire.domain.Product;
 import io.pivotal.market.api.dao.PivotMarketPostgreDAO;
-import io.pivotal.pde.pivotMart.streams.PivotMartStreamConf;
+import io.pivotal.services.pivotMart.streams.PivotMartStreamConf;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest

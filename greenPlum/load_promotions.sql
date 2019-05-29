@@ -13,3 +13,8 @@ insert into pivotalmarkets.promotion(promotionid,startdate,enddate,marketingmess
 
     INSERT INTO "pivotalmarkets"."promotion" (promotionid,startdate,enddate,marketingmessage,marketingimageurl,productid)
     VALUES (6,{d '2018-08-31'},{d '2019-12-31'},'Buy get one free apples','TODO',10);
+
+
+    INSERT INTO "pivotalmarkets"."promotion"
+    (promotionid,startdate,enddate,marketingmessage,marketingimageurl,productid)
+    VALUES (7,{d '2018-08-31'},{d '2019-12-31'},'$1 off Pivotal Cranberry','https://s3.amazonaws.com/cloud-native-data/canned-cranberry-sauce.jpg',88);

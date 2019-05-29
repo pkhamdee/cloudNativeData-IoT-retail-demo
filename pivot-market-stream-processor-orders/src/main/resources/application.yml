@@ -25,9 +25,16 @@ spring.cloud.stream.bindings.output.destination: pivotMartOrders.orders
 spring.cloud.stream.kafka.streams.binder.brokers: ec2-35-174-17-30.compute-1.amazonaws.com:9092
 spring.cloud.stream.kafka.binder.brokers: ec2-35-174-17-30.compute-1.amazonaws.com:9092
 spring.cloud.stream.kafka.binder.zkNodes: ec2-35-174-17-30.compute-1.amazonaws.com:2181
+
+
 spring.cloud.stream.bindings.input.destination: pivotMartOrders.http
 spring.cloud.stream.bindings.input.group: groupLocal
 spring.cloud.stream.bindings.input.consumer.useNativeDecoding: false
+spring.cloud.stream.kafka.bindings.input.consumer.enableDlq: true
+spring.cloud.stream.kafka.bindings.input.consumer.dlqName: pivotMartOrders.errors
+
+
+spring.cloud.stream.bindings.error.destination: myErrors
 
 server.port: 7088
   

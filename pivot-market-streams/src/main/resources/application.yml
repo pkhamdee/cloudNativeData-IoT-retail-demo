@@ -1,1 +1,3 @@
 checkKafkaSleepMs: 100
+server:
+  port: 6000

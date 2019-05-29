@@ -57,6 +57,16 @@ public class PivotMartMgr implements PivotalMartFacadeService
 	ExecutorBoss boss = new ExecutorBoss(1);
 	
 	
+	
+	
+	/**
+	 * @param dao the dao to set
+	 */
+	public void setDao(PivotMartDAO dao)
+	{
+		this.dao = dao;
+	}
+
 	/* (non-Javadoc)
 	 * @see io.pivotal.market.api.PivotalMartFacadeService#processBeaconRequest(io.pivotal.gemfire.domain.BeaconRequest)
 	 */	
@@ -132,8 +142,8 @@ public class PivotMartMgr implements PivotalMartFacadeService
 	{
 		return this.dao.selectProduct(productId);
 	}//------------------------------------------------
-	/* (non-Javadoc)
-	 * @see io.pivotal.market.api.PivotalMartFacadeService#loadProductsCache()
+	/**
+	 * Load all products from database into cache
 	 */
 	@Override
 	public Boolean loadProductsCache()
@@ -234,6 +244,13 @@ public class PivotMartMgr implements PivotalMartFacadeService
 	public OrderDTO processOrderCSV(String csv)
 	{
 		Debugger.println(this,"processing csv:"+csv);
+		
+		if(csv  == null || csv.length() == 0)
+		{
+			Debugger.println(this,"CSV is null. Returning null");
+			return null;
+		}
+		
 		
 		try
 		{

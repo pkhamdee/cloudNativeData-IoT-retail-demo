@@ -1,4 +1,4 @@
-package io.pivotal.pde.pivotMart.streams;
+package io.pivotal.services.pivotMart.streams;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
@@ -17,7 +17,8 @@ import gedi.solutions.geode.client.GeodeClient;
 import io.pivotal.gemfire.domain.BeaconRequest;
 import io.pivotal.gemfire.domain.CustomerIdentifier;
 import io.pivotal.gemfire.domain.OrderDTO;
-import io.pivotal.pde.pivotMart.streams.dao.PivotMartDAO;
+import io.pivotal.services.pivotMart.streams.PivotMartStreamService;
+import io.pivotal.services.pivotMart.streams.dao.PivotMartDAO;
 import nyla.solutions.core.io.csv.CsvWriter;
 import nyla.solutions.core.patterns.workthread.ExecutorBoss;
 import nyla.solutions.core.util.Text;
