@@ -3,23 +3,21 @@ package io.pivotal.market.api;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import java.util.Arrays;
+import java.util.Collection;
+
 import org.apache.geode.cache.Region;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import com.google.gson.Gson;
-
 import io.pivotal.gemfire.domain.CustomerIdentifier;
 import io.pivotal.gemfire.domain.OrderDTO;
 import io.pivotal.market.api.dao.PivotMartDAO;
+import nyla.solutions.core.io.IO;
 import nyla.solutions.core.patterns.workthread.ExecutorBoss;
 
 public class PivotMartMgrTest
 {
 	static PivotMartMgr service = null;
 
-	private Gson gson = new Gson();
-	
 	@SuppressWarnings("unchecked")
 
 	@BeforeClass
@@ -48,17 +46,38 @@ public class PivotMartMgrTest
 	{
 		
 		
-		String csv ="\"0\",\"Nyla\",\"Nyla\",\"77-777\",\"1,2\"";
+		String csv ="\"0\",\"Nyla\",\"Nyla\",Email,\"77-777\",\"1,2\"";
 		
-		OrderDTO order = service.processOrderCSV(csv);
+		Collection<OrderDTO> orders = service.processOrderCSV(csv);
 		
-		assertTrue(order.getProductIds() != null);
+		assertTrue(orders !=null && !orders.isEmpty());
+		
+		OrderDTO order = orders.iterator().next();
 		
 		Integer [] expected = {1,2};
 		
+		assertEquals(Arrays.asList(expected), Arrays.asList(order.getProductIds()));
+		
+	}//------------------------------------------------
+	@Test
+	public void test_multiple_lines()
+	throws Exception
+	{
+		String csv = IO.readFile("src/test/resources/test.csv");
+		
+		assertTrue("csv:"+csv,csv != null && csv.trim().length() > 0);
+		
+		Collection<OrderDTO> orders = service.processOrderCSV(csv);
+		
+		assertTrue(orders !=null && !orders.isEmpty());
+		
+		assertEquals(2, orders.size());
+		
+		OrderDTO order = orders.iterator().next();
+		
+		Integer [] expected = {1,2,3};
 		
 		assertEquals(Arrays.asList(expected), Arrays.asList(order.getProductIds()));
 		
 	}
-
 }

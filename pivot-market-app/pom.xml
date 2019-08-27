@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>pivot-market-domain</artifactId>
-			<version>0.0.3</version>
+			<version>0.0.5-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.servlet.jsp.jstl/javax.servlet.jsp.jstl-api -->
 		<dependency>

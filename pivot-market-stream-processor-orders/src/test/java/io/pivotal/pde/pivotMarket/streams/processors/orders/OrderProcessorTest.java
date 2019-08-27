@@ -3,6 +3,9 @@ package io.pivotal.pde.pivotMarket.streams.processors.orders;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
+import java.util.Collection;
+import java.util.Collections;
+
 import org.junit.Test;
 
 import io.pivotal.gemfire.domain.OrderDTO;
@@ -19,12 +22,12 @@ public class OrderProcessorTest extends OrderProcessor
 		
 		op.service = mock(PivotalMartFacadeService.class);
 
-		OrderDTO dto = new OrderDTO();
+		Collection<OrderDTO> dto = Collections.singleton(new OrderDTO());
 		when(op.service.processOrderCSV(anyString())).thenReturn(dto);
 		
 		String csv = "\"0\",\"Nyla\",\"Nyla\",\"777-777-7777\",\"1,2\"";
 		
-		OrderDTO orders = op.process(csv);
+		Collection<OrderDTO> orders = op.process(csv);
 		
 	
 		assertNotNull(orders);

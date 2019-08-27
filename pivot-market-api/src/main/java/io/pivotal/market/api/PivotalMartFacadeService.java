@@ -1,5 +1,7 @@
 package io.pivotal.market.api;
 
+import java.util.Collection;
+
 import org.springframework.stereotype.Service;
 import io.pivotal.gemfire.domain.BeaconRequest;
 import io.pivotal.gemfire.domain.OrderDTO;
@@ -22,6 +24,6 @@ public interface PivotalMartFacadeService
 	int processOrder(OrderDTO order);
 
 	
-	OrderDTO processOrderCSV(String csv);
+	Collection<OrderDTO> processOrderCSV(String csv);
 
 }

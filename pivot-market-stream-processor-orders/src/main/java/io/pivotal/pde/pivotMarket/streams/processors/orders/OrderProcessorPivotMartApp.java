@@ -1,10 +1,13 @@
 package io.pivotal.pde.pivotMarket.streams.processors.orders;
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.stream.annotation.EnableBinding;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Processor;
+import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.SendTo;
 
 import io.pivotal.gemfire.domain.OrderDTO;
@@ -32,20 +35,24 @@ public class OrderProcessorPivotMartApp {
 		
 		/**
 		 * 
-		 * @param csv the CSV input
+		 * @param msg the CSV input msg
 		 * @return the order details
 		 */
 		@StreamListener(Processor.INPUT)
 		@SendTo(Processor.OUTPUT)
-		public OrderDTO process(String csv) {
+		public Collection<OrderDTO> processMessage(Message<String> msg) {
+			return this.process(msg.getPayload());
+		}//------------------------------------------------
+		
+		public Collection<OrderDTO> process(String csv) {
 
-			System.out.println("stream PROCESSING:"+csv);
+			System.out.println("Stream PROCESSING CSV:"+csv);
 			
 			try
 			{
 						System.out.println("ARGUMENTS:"+System.getProperty("sun.java.command"));
 						System.out.println(" csv:"+csv);
-						OrderDTO order = service.processOrderCSV(csv);
+						Collection<OrderDTO> order = service.processOrderCSV(csv);
 						
 						System.out.println("ORDER processed:"+order);
 						

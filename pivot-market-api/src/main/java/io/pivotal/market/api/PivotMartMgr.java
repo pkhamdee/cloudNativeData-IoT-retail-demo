@@ -1,9 +1,9 @@
 package io.pivotal.market.api;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.Resource;
@@ -19,12 +19,10 @@ import io.pivotal.gemfire.domain.Product;
 import io.pivotal.gemfire.domain.ProductAssociate;
 import io.pivotal.gemfire.domain.Promotion;
 import io.pivotal.market.api.dao.PivotMartDAO;
-import nyla.solutions.core.io.csv.CsvReader;
 import nyla.solutions.core.patterns.workthread.ExecutorBoss;
 import nyla.solutions.core.patterns.workthread.MemorizedQueue;
 import nyla.solutions.core.util.Debugger;
 import nyla.solutions.core.util.Organizer;
-import nyla.solutions.core.util.Text;
 
 public class PivotMartMgr implements PivotalMartFacadeService 
 {
@@ -236,56 +234,63 @@ public class PivotMartMgr implements PivotalMartFacadeService
 			}
 		}
 	}//------------------------------------------------
+	public Collection<OrderDTO> processOrderCSV(String csv)
+	{
+		
+		System.out.println("processOrderCSV:"+csv);
+		
+		if(csv == null || csv.length() == 0)
+			return null;
+		
+		String[] lines = csv.split("\n");
+		
+		if(lines == null || lines.length == 0)
+			return null;
+		
+		
+		ArrayList<OrderDTO> orders = new ArrayList<>(lines.length);
+		
+		for (String line : lines)
+		{
+			line = line.trim();
+			if(line.length() ==0)
+				continue; //skip empty lines
+			
+			orders.add(this.processOrderCSVLine(line));
+		}
+		
+		orders.trimToSize();
+		
+		return orders;
+		
+	}//------------------------------------------------
 	
 	/* (non-Javadoc)
 	 * @see io.pivotal.market.api.PivotalMartFacadeService#processOrderCSV(java.lang.String)
 	 */
-	@Override
-	public OrderDTO processOrderCSV(String csv)
+	public OrderDTO processOrderCSVLine(String csv)
 	{
-		Debugger.println(this,"processing csv:"+csv);
+		Debugger.println(this,"processing csv line:"+csv);
 		
-		if(csv  == null || csv.length() == 0)
+		if(csv  == null || csv.length() == 0 || csv.trim().length() == 0)
 		{
 			Debugger.println(this,"CSV is null. Returning null");
 			return null;
 		}
 		
-		
 		try
 		{
-			List<String> cells = CsvReader.parse(csv);
-			int length  = cells.size();
+			MarketCsvBuilder builder = new MarketCsvBuilder();
+			builder.buildOrderLine(csv);
 			
-			int i=0;
-			String key = length > i ? cells.get(i) : null;
-			i++;
-			
-			String firstName = length > i ? cells.get(i) : null;
-			i++;
-			
-			String lastName  = length > i ? cells.get(i) : null;
-			i++;
-
-			String mobileNumber = length > i ? cells.get(i) : null;
-			i++;
-			
-			String text = length > i ? cells.get(i) : null;
-			
-			if(text == null || text.length() ==0)
-			{
-				Debugger.printInfo(this,"No product ids provided:"+csv);
-				throw new IllegalArgumentException("No product ids provided:"+csv);
-			}
-			Integer[] productIds = Text.splitRE(text, ",",Integer.class);
+			Integer[] productIds = builder.getProductIds();
 			
 			if(productIds == null || productIds.length ==0 )
 			{
 				throw new IllegalArgumentException("Product ids are null or empty:"+csv);
 			}
 			
-			CustomerIdentifier customerIdentifier = new CustomerIdentifier(key, firstName, lastName, mobileNumber);
-			OrderDTO orderDTO = new OrderDTO(customerIdentifier, productIds);
+			OrderDTO orderDTO = builder.getOrderDTO();
 			
 			this.processOrder(orderDTO);
 			
@@ -298,5 +303,5 @@ public class PivotMartMgr implements PivotalMartFacadeService
 			throw e;
 		}
 		
-	}
+	}//------------------------------------------------
 }

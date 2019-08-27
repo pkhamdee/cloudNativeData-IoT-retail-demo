@@ -1,5 +1,7 @@
 package io.pivotal.gemfire.domain;
 
+import java.util.Arrays;
+
 public class OrderDTO
 {
 	private CustomerIdentifier customerIdentifier;
@@ -44,6 +46,18 @@ public class OrderDTO
 	public void setCustomerIdentifier(CustomerIdentifier customerIdentifier)
 	{
 		this.customerIdentifier = customerIdentifier;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString()
+	{
+		StringBuilder builder = new StringBuilder();
+		builder.append("OrderDTO [customerIdentifier=").append(customerIdentifier).append(", productIds=")
+		.append(Arrays.toString(productIds)).append("]");
+		return builder.toString();
 	}
 
 	

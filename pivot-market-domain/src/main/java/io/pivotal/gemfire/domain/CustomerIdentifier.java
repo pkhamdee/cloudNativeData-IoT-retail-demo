@@ -5,6 +5,7 @@ public class CustomerIdentifier
 	private String key;
 	private String firstName;
 	private String lastName;
+	private String email;
 	private String mobileNumber;
 	
 
@@ -12,13 +13,14 @@ public class CustomerIdentifier
 	{}
 	
 	
-	public CustomerIdentifier(String key, String firstName, String lastName, String mobileNumber)
+	public CustomerIdentifier(String key, String firstName, String lastName, String email, String mobileNumber)
 	{
 		super();
 		this.key = key;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.mobileNumber = mobileNumber;
+		this.email = email;
 	}
 
 
@@ -78,6 +80,26 @@ public class CustomerIdentifier
 	{
 		this.mobileNumber = mobileNumber;
 	}
+
+
+	/**
+	 * @return the email
+	 */
+	public String getEmail()
+	{
+		return email;
+	}
+
+
+	/**
+	 * @param email the email to set
+	 */
+	public void setEmail(String email)
+	{
+		this.email = email;
+	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
@@ -85,8 +107,9 @@ public class CustomerIdentifier
 	public String toString()
 	{
 		StringBuilder builder = new StringBuilder();
-		builder.append("CustomerIdentifier [firstName=").append(firstName).append(", lastName=").append(lastName)
-		.append(", mobileNumber=").append(mobileNumber).append("]");
+		builder.append("CustomerIdentifier [key=").append(key).append(", firstName=").append(firstName)
+		.append(", lastName=").append(lastName).append(", email=").append(email).append(", mobileNumber=")
+		.append(mobileNumber).append("]");
 		return builder.toString();
 	}
 	

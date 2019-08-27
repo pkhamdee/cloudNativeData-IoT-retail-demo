@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<artifactId>pivot-market-stream-processor-orders</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>pivot-market-stream-processor-orders</name>
@@ -34,13 +34,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>io.pivotal</groupId>
-			<artifactId>pivot-market-domain</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
-		</dependency>
-		<dependency>
 			  <artifactId>spring-cloud-stream</artifactId>
-			   <!--<version>2.1.0.RELEASE</version>-->
 			   <groupId>org.springframework.cloud</groupId>
        	</dependency>
 	
@@ -48,13 +42,12 @@
 		<dependency>
 		    <groupId>org.hibernate</groupId>
 		    <artifactId>hibernate-core</artifactId>
-<!-- 		    <version>5.3.7.Final</version> -->
 		</dependency>
 			
 		<dependency>
 			<groupId>io.pivotal</groupId>
 			<artifactId>pivot-market-api</artifactId>
-			<version>0.1.1-SNAPSHOT</version>		
+			<version>0.1.2-SNAPSHOT</version>		
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -63,12 +56,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
-<!-- 			<exclusions> -->
-<!-- 				<exclusion> -->
-<!-- 					<groupId>org.springframework.boot</groupId> -->
-<!-- 					<artifactId>spring-boot-starter-logging</artifactId> -->
-<!-- 				</exclusion> -->
-<!-- 			</exclusions> -->
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>

@@ -27,7 +27,22 @@ app.http.spring.cloud.stream.defaultBinder=kakfa1,app.order.spring.cloud.stream.
  "spring.cloud.dataflow.stream.app.type":"processor",
  "spring.cloud.stream.bindings.input.destination":"pivotMartOrders.http"}
 
-	 
+
+## SCDF
+
+	http --spring.cloud.stream.bindings.applicationMetrics.destination=metrics --server.port=7374 --spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181 --spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092 | orders --spring.cloud.stream.bindings.applicationMetrics.destination=metrics --jdbcUrl=jdbc:postgresql://18.213.48.32:6432/retail --jdbcUsername='******' | log --spring.cloud.stream.kafka.binder.zkNodes=ec2-35-174-17-30.compute-1.amazonaws.com:2181 --spring.cloud.stream.bindings.applicationMetrics.destination=metrics --spring.cloud.stream.kafka.binder.brokers=ec2-35-174-17-30.compute-1.amazonaws.com:9092
+
+
+	app import --uri https://dataflow.spring.io/Einstein-SR3-stream-applications-kafka-maven
+	
+	app register --name kafka --type source --uri file:///Projects/solutions/nyla/integration/dev/nyla-integration/messaging/apacheKafka/nyla-kafka-spring-cloud-stream-source/target/nyla-kafka-spring-cloud-stream-source-0.0.1-SNAPSHOT.jar
+	
+	
+	app register --name orders --type processor --uri file:///Projects/Pivotal/demo/cloudNativeDataDemo/dev/CloudNativeDataDemo/supermarket/pivot-market-stream-processor-orders-0.0.1-SNAPSHOT.jar
+
+	stream create --definition "kafka --boot-strap-servers-config=localhost:9092 --group-id=scdfPivotMarket | pivotmart-process  --jdbcUrl='jdbc:postgresql://localhost:5432/template1' --jdbcUsername=gpadmin --jdbcPassword=$PASSWD --kafkaBootStrapServers=localhost:9092 --kafkaGroupId=scdf| log" --name pivotMarket-stream
+		
+	stream deploy --name pivotMarket-stream --properties  app.kafka.spring.cloud.stream.defaultBinder=rabbit1
 	 
 ## PCF 
 
@@ -70,6 +85,9 @@ CSV Format: Key,firstName,lastName,phone,productIds
 	"0","Nyla","Nyla","777-777-7777","3,4,26"
 	
 	
+On PCF use HTTP POST to https://6H8MLZM-pivotMartOrders-http-v9.apps.pcfone.io
+
+	"0","Nyla","Nyla","777-777-7777","63"
 	
 	-----------------------
 	
@@ -86,5 +104,9 @@ CSV Format: Key,firstName,lastName,phone,productIds
     image: wurstmeister/zookeeper
     expose:
       - "2181"
+      
+      
+      ------------------------------
+      SPRING_APPLICATION_INDEX: ${vcap.application.instance_index}
       
       

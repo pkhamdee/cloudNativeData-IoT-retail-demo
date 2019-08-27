@@ -11,7 +11,24 @@ on Spring, GemFire/Apache Geode, Greenplum and Messaging Driven Architecture.
 	create region --name=customerPromotions --type=PARTITION
 	create region --name=alerts --type=PARTITION
 
+## Deploy PCF
 
+	cd pivot-market-streams
+	cf push -p target/pivot-market-stream-0.0.4-SNAPSHOT.jar
+	
+	
+Sample manifest
+
+	---
+	applications:
+	- name: pivotMarketStreams 
+	  memory: 4G 
+	  env:
+	      kafkaBootStrapServers: localhost:9092
+	      kafkaGroupId: pivotMarketStreamsPCFOne
+	      jdbcUrl: jdbc:postgresql://localhost:6432/retail
+	      jdbcUsername: userName
+      
 
 ## Testing
 
@@ -26,18 +43,7 @@ on Spring, GemFire/Apache Geode, Greenplum and Messaging Driven Architecture.
 
 or  pivotmarketstreams.apps.pcfone.io/loadProductsCache
 
-## SCDF
 
-	app import --uri http://bit.ly/Darwin-SR3-stream-applications-rabbit-maven
-	
-	app register --name kafka --type source --uri file:///Projects/solutions/nyla/integration/dev/nyla-integration/messaging/apacheKafka/nyla-kafka-spring-cloud-stream-source/target/nyla-kafka-spring-cloud-stream-source-0.0.1-SNAPSHOT.jar
-	
-	
-	app register --name orders --type processor --uri file:///Projects/Pivotal/demo/cloudNativeDataDemo/dev/CloudNativeDataDemo/supermarket/pivot-market-stream-processor-orders-0.0.1-SNAPSHOT.jar
-
-	stream create --definition "kafka --boot-strap-servers-config=localhost:9092 --group-id=scdfPivotMarket | pivotmart-process  --jdbcUrl='jdbc:postgresql://localhost:5432/template1' --jdbcUsername=gpadmin --jdbcPassword=$PASSWD --kafkaBootStrapServers=localhost:9092 --kafkaGroupId=scdf| log" --name pivotMarket-stream
-		
-	stream deploy --name pivotMarket-stream --properties  app.kafka.spring.cloud.stream.defaultBinder=rabbit1
 
 
 
