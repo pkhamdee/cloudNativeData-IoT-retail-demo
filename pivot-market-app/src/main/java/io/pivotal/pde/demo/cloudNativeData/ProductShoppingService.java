@@ -115,9 +115,10 @@ public class ProductShoppingService
 
 			UserProfileDetails user =springSecurityUserService
 										.findUserProfileDetailsByUserName(userPrincipal.getName());
-			
+
+			//String key, String firstName, String lastName, String email, String mobileNumber)
 			CustomerIdentifier customerIdentifier = new CustomerIdentifier(userPrincipal.getName(), 
-			user.getFirstName(), user.getLastName(), user.getPhone());
+			user.getFirstName(), user.getLastName(),user.getEmail(), user.getPhone());
 			
 			OrderDTO order = new OrderDTO(customerIdentifier, productIds);
 

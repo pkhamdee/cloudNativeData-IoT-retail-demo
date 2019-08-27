@@ -93,7 +93,7 @@ public class CustomerMgr
 			return null;
 			
 			
-		return new CustomerIdentifier(userName, upd.getFirstName(), upd.getLastName(), upd.getEmail());
+		return new CustomerIdentifier(userName, upd.getFirstName(), upd.getLastName(), upd.getEmail(),upd.getPhone());
 	}
 	
 }

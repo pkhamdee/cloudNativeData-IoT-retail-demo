@@ -298,6 +298,8 @@ public class PivotMartStreamService
 			String lastName  = length > i ? cells.get(i) : null;
 			i++;
 
+			String email = length > i ? cells.get(i) : null;
+
 			String mobileNumber = length > i ? cells.get(i) : null;
 			i++;
 			
@@ -315,7 +317,8 @@ public class PivotMartStreamService
 				throw new IllegalArgumentException("Product ids are null or empty:"+csv);
 			}
 			
-			CustomerIdentifier customerIdentifier = new CustomerIdentifier(key, firstName, lastName, mobileNumber);
+			CustomerIdentifier customerIdentifier = new CustomerIdentifier(key, firstName, lastName,
+					email,mobileNumber);
 			OrderDTO orderDTO = new OrderDTO(customerIdentifier, productIds);
 			
 			this.processOrder(orderDTO);
